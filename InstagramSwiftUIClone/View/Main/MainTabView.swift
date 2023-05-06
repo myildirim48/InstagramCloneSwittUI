@@ -9,7 +9,10 @@ import SwiftUI
 
 struct MainTabView: View {
     
-    @StateObject var authViewModel = AuthViewModel()
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @Environment(\.dismiss) var dissmis
+    
+    let user: User
     
     var body: some View {
         NavigationView {
@@ -34,7 +37,7 @@ struct MainTabView: View {
                         Image(systemName: "heart")
                     }
                 
-                ProfileView()
+                ProfileView(user: user)
                     .tabItem {
                         Image(systemName: "person")
                     }
@@ -53,16 +56,13 @@ struct MainTabView: View {
     var logOutButton: some View {
         Button {
             authViewModel.logOut()
+            dissmis()
         } label: {
             Text("Logout")
+                .font(.system(size: 14,weight: .semibold))
             
         }
 
     }
 }
 
-struct MainTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainTabView()
-    }
-}

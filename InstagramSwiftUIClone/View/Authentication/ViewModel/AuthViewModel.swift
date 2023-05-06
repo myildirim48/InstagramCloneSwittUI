@@ -7,16 +7,27 @@
 
 import SwiftUI
 import Firebase
-
 class AuthViewModel: ObservableObject {
-    @ Published var userSessions: FirebaseAuth.User?
+    @Published var userSessions: FirebaseAuth.User?
+    @Published var currentUser: User?
+    
     
     init() {
         self.userSessions = Auth.auth().currentUser
+        fetchUser()
     }
     
-    func login()  {
-        
+    func login(withEmail email: String, password: String)  {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error {
+                print("DEBUG : Error while creating user. \(error.localizedDescription)")
+                return
+            }
+            
+            guard let user = result?.user else { return }
+            self.userSessions = user
+            self.fetchUser()
+        }
     }
     
     func logOut() {
@@ -29,7 +40,7 @@ class AuthViewModel: ObservableObject {
                   image: UIImage?,
                   fullname: String,
                   username: String)  {
-    
+            
         guard let image else { return }
         ImageUploader.uploadImage(image: image) { imgrUrl in
             Auth.auth().createUser(withEmail: email, password: password) { result, error in
@@ -45,15 +56,14 @@ class AuthViewModel: ObservableObject {
                             "profileImageurl" : imgrUrl,
                             "uid": user.uid]
                 
-                Firestore.firestore().collection("users")
+                COLLECTION_USERS
                     .document(user.uid)
                     .setData(data) { _ in
                         self.userSessions = user
-                        print("DEBUG: User registered image uploaded")
-                    }
+                        self.fetchUser()
+                }
             }
         }
-        
     }
     
     func resetPassword()  {
@@ -61,6 +71,17 @@ class AuthViewModel: ObservableObject {
     }
     
     func fetchUser()  {
-        
+        guard let uid = userSessions?.uid else { return }
+       COLLECTION_USERS
+            .document(uid)
+            .getDocument { snapshot, _ in
+                guard let snapshot else { return }
+                
+                guard let user = try? snapshot.data(as: User.self) else { return }
+                
+                if user.id == self.userSessions?.uid {
+                    self.currentUser = user
+                }
+            }
     }
 }

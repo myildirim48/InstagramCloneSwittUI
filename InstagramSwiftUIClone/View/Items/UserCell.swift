@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct UserCell: View {
+    
+    let user: User
+    
     var body: some View {
         HStack {
-            Image(systemName: "person.circle")
-                .resizable()
-                .frame(width: 48, height: 48, alignment: .leading)
-                .clipShape(Circle())
+            LoadableImage(imgUrl: user.profileImageurl,size: 48)
             
             VStack(alignment: .leading) {
-                Text("Name")
+                Text(user.fullname)
                     .font(.system(size: 16, weight: .semibold, design: .rounded))
                 
-                Text("namesurname")
+                Text(user.username)
                     .font(.system(size: 14, weight: .light, design: .rounded))
                 
             }
@@ -29,8 +29,8 @@ struct UserCell: View {
     }
 }
 
-struct UserCell_Previews: PreviewProvider {
-    static var previews: some View {
-        UserCell()
-    }
-}
+//struct UserCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UserCell()
+//    }
+//}

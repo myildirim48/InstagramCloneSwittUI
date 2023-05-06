@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct ProfileHeaderView: View {
+//
+    @ObservedObject var viewModel: ProfileViewModel
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image("darth-vader")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 80, height: 80)
-                    .clipShape(Circle())
+                LoadableImage(imgUrl: viewModel.user.profileImageurl,size: 80)
                     .shadow(color: .gray.opacity(0.5), radius: 5)
                     .padding(10)
                 Spacer()
@@ -28,7 +27,7 @@ struct ProfileHeaderView: View {
                 }.padding(.trailing,24)
             }
             
-            Text("Anakin Skywalker")
+            Text(viewModel.user.fullname)
                 .font(.system(size: 14,weight: .semibold))
                 .padding([.leading,.top],10)
             
@@ -39,18 +38,11 @@ struct ProfileHeaderView: View {
             
             HStack {
                 Spacer()
-                ProfileActionButton()
+                ProfileActionButton(viewModel: viewModel)
                 Spacer()
             }.padding(.top)
 
             
         }
-    }
-}
-
-
-struct ProfileHeaderView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileHeaderView()
     }
 }
