@@ -11,6 +11,7 @@ class AuthViewModel: ObservableObject {
     @Published var userSessions: FirebaseAuth.User?
     @Published var currentUser: User?
     
+    private let userService = UserService()
     
     init() {
         self.userSessions = Auth.auth().currentUser
@@ -42,7 +43,7 @@ class AuthViewModel: ObservableObject {
                   username: String)  {
             
         guard let image else { return }
-        ImageUploader.uploadImage(image: image) { imgrUrl in
+        ImageUploader.uploadImage(image: image, type: .profile) { imgrUrl in
             Auth.auth().createUser(withEmail: email, password: password) { result, error in
                 if let error {
                     print("DEBUG : Error while creating user, \(error.localizedDescription)")
@@ -72,16 +73,12 @@ class AuthViewModel: ObservableObject {
     
     func fetchUser()  {
         guard let uid = userSessions?.uid else { return }
-       COLLECTION_USERS
-            .document(uid)
-            .getDocument { snapshot, _ in
-                guard let snapshot else { return }
-                
-                guard let user = try? snapshot.data(as: User.self) else { return }
-                
-                if user.id == self.userSessions?.uid {
-                    self.currentUser = user
-                }
+        
+        userService.fetchUser(withUid: uid) { user in
+            
+            if user.id == self.userSessions?.uid {
+                self.currentUser = user
             }
+        }
     }
 }

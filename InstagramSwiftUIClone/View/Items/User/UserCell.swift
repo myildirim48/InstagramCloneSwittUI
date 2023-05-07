@@ -13,7 +13,7 @@ struct UserCell: View {
     
     var body: some View {
         HStack {
-            LoadableImage(imgUrl: user.profileImageurl,size: 48)
+            LoadableImage(imageType: .profile, imgUrl: user.profileImageurl,size: 48)
             
             VStack(alignment: .leading) {
                 Text(user.fullname)

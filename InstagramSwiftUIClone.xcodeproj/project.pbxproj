@@ -45,6 +45,12 @@
 		74A2F7B22A04EAA900E6CBA9 /* LoadableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A2F7B12A04EAA900E6CBA9 /* LoadableImage.swift */; };
 		74BC19632A0656FF008F0659 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC19622A0656FF008F0659 /* ProfileViewModel.swift */; };
 		74BC19652A0659C1008F0659 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC19642A0659C1008F0659 /* UserService.swift */; };
+		74BC19682A06882E008F0659 /* UploadPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC19672A06882E008F0659 /* UploadPostViewModel.swift */; };
+		74BC196A2A069438008F0659 /* TextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC19692A069438008F0659 /* TextArea.swift */; };
+		74BC196C2A077966008F0659 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC196B2A077966008F0659 /* Post.swift */; };
+		74BC196E2A077A9C008F0659 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC196D2A077A9C008F0659 /* FeedViewModel.swift */; };
+		74BC19702A07813A008F0659 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC196F2A07813A008F0659 /* PostService.swift */; };
+		74BC19732A07A63F008F0659 /* PostGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC19722A07A63F008F0659 /* PostGridViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +87,12 @@
 		74A2F7B12A04EAA900E6CBA9 /* LoadableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableImage.swift; sourceTree = "<group>"; };
 		74BC19622A0656FF008F0659 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		74BC19642A0659C1008F0659 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		74BC19672A06882E008F0659 /* UploadPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostViewModel.swift; sourceTree = "<group>"; };
+		74BC19692A069438008F0659 /* TextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextArea.swift; sourceTree = "<group>"; };
+		74BC196B2A077966008F0659 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		74BC196D2A077A9C008F0659 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		74BC196F2A07813A008F0659 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		74BC19722A07A63F008F0659 /* PostGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGridViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +154,6 @@
 		7471BF522A02D32900268BB3 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				74A2F78B2A03D5CC00E6CBA9 /* CustomViews */,
 				74A2F7AA2A04E72300E6CBA9 /* Constants.swift */,
 			);
 			path = Utils;
@@ -153,6 +164,7 @@
 			children = (
 				74A2F7A82A041F2000E6CBA9 /* ImageUploader.swift */,
 				74BC19642A0659C1008F0659 /* UserService.swift */,
+				74BC196F2A07813A008F0659 /* PostService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -177,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				74A2F7AC2A04E7A800E6CBA9 /* User.swift */,
+				74BC196B2A077966008F0659 /* Post.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -193,6 +206,7 @@
 		7471BF5A2A02D3BC00268BB3 /* UploadPost */ = {
 			isa = PBXGroup;
 			children = (
+				74BC19662A068826008F0659 /* ViewModel */,
 				7471BF712A02D4AF00268BB3 /* UploadPostView.swift */,
 			);
 			path = UploadPost;
@@ -261,10 +275,11 @@
 		7471BF612A02D3E900268BB3 /* Items */ = {
 			isa = PBXGroup;
 			children = (
-				7471BF792A03A5EC00268BB3 /* PostGridView.swift */,
-				7471BF7B2A03A78400268BB3 /* UserCell.swift */,
-				7471BF7D2A03A79400268BB3 /* UserListView.swift */,
+				74A2F78B2A03D5CC00E6CBA9 /* User */,
+				74A2F78C2A03D5D700E6CBA9 /* CustomTextField.swift */,
+				74BC19712A07A621008F0659 /* PostGridView */,
 				74A2F7B12A04EAA900E6CBA9 /* LoadableImage.swift */,
+				74BC19692A069438008F0659 /* TextArea.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -272,6 +287,7 @@
 		7471BF622A02D40E00268BB3 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				74BC196D2A077A9C008F0659 /* FeedViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -299,12 +315,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		74A2F78B2A03D5CC00E6CBA9 /* CustomViews */ = {
+		74A2F78B2A03D5CC00E6CBA9 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				74A2F78C2A03D5D700E6CBA9 /* CustomTextField.swift */,
+				7471BF7B2A03A78400268BB3 /* UserCell.swift */,
+				7471BF7D2A03A79400268BB3 /* UserListView.swift */,
 			);
-			path = CustomViews;
+			path = User;
 			sourceTree = "<group>";
 		};
 		74A2F7AE2A04E8B000E6CBA9 /* ViewModel */ = {
@@ -313,6 +330,23 @@
 				74A2F7AF2A04E8B900E6CBA9 /* SearchViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		74BC19662A068826008F0659 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				74BC19672A06882E008F0659 /* UploadPostViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		74BC19712A07A621008F0659 /* PostGridView */ = {
+			isa = PBXGroup;
+			children = (
+				7471BF792A03A5EC00268BB3 /* PostGridView.swift */,
+				74BC19722A07A63F008F0659 /* PostGridViewModel.swift */,
+			);
+			path = PostGridView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -397,16 +431,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74BC19732A07A63F008F0659 /* PostGridViewModel.swift in Sources */,
 				7471BF742A02D4BD00268BB3 /* ProfileView.swift in Sources */,
 				7471BF6D2A02D49800268BB3 /* SearchView.swift in Sources */,
 				7471BF7A2A03A5EC00268BB3 /* PostGridView.swift in Sources */,
 				74A2F7AD2A04E7A800E6CBA9 /* User.swift in Sources */,
 				7471BF862A03B96D00268BB3 /* UserStatView.swift in Sources */,
+				74BC196E2A077A9C008F0659 /* FeedViewModel.swift in Sources */,
+				74BC196A2A069438008F0659 /* TextArea.swift in Sources */,
 				7471BF6A2A02D48500268BB3 /* FeedView.swift in Sources */,
 				74BC19632A0656FF008F0659 /* ProfileViewModel.swift in Sources */,
 				7471BF722A02D4AF00268BB3 /* UploadPostView.swift in Sources */,
 				7471BF592A02D3B700268BB3 /* ContentView.swift in Sources */,
 				74A2F78A2A03D3EF00E6CBA9 /* ResetPasswordView.swift in Sources */,
+				74BC196C2A077966008F0659 /* Post.swift in Sources */,
 				7471BF822A03AE8E00268BB3 /* NotificationCell.swift in Sources */,
 				7471BF842A03B51B00268BB3 /* ProfileHeaderView.swift in Sources */,
 				7471BF452A02D2E100268BB3 /* InstagramSwiftUICloneApp.swift in Sources */,
@@ -419,6 +457,7 @@
 				74A2F7882A03D3E200E6CBA9 /* RegistrationView.swift in Sources */,
 				74A2F7B22A04EAA900E6CBA9 /* LoadableImage.swift in Sources */,
 				74A2F7B02A04E8B900E6CBA9 /* SearchViewModel.swift in Sources */,
+				74BC19702A07813A008F0659 /* PostService.swift in Sources */,
 				7471BF782A03845400268BB3 /* SearchBar.swift in Sources */,
 				7471BF702A02D4A300268BB3 /* NotificationsView.swift in Sources */,
 				74A2F7A72A0419D800E6CBA9 /* AuthViewModel.swift in Sources */,
@@ -426,6 +465,7 @@
 				7471BF7E2A03A79400268BB3 /* UserListView.swift in Sources */,
 				7471BF882A03BADD00268BB3 /* ProfileActionButton.swift in Sources */,
 				74A2F7AB2A04E72300E6CBA9 /* Constants.swift in Sources */,
+				74BC19682A06882E008F0659 /* UploadPostViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

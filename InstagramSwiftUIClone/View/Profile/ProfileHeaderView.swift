@@ -14,7 +14,7 @@ struct ProfileHeaderView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                LoadableImage(imgUrl: viewModel.user.profileImageurl,size: 80)
+                LoadableImage(imageType: .profile,imgUrl: viewModel.user.profileImageurl,size: 80)
                     .shadow(color: .gray.opacity(0.5), radius: 5)
                     .padding(10)
                 Spacer()

@@ -14,6 +14,9 @@ struct UploadPostView: View {
     @State private var selectedItems: [PhotosPickerItem] = []
     @State var selectedImageData: Data?
     @State var captionText = ""
+    @Binding var tabIndex: Int
+    
+    @ObservedObject var postVideModel = UploadPostViewModel()
     
     var body: some View {
         VStack {
@@ -47,27 +50,46 @@ struct UploadPostView: View {
             }else if let selectedImageData, let uiimage = UIImage(data: selectedImageData) {
                 
                 HStack(alignment: .top) {
-                Image(uiImage: uiimage)
+                    Image(uiImage: uiimage)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 96, height: 96)
                         .clipped()
                     
-                    TextField("Caption...", text: $captionText)
+                    TextArea(placeholder: "Caption...", text: $captionText)
+                    
                 }.padding()
                 
-                Button {
+                HStack(spacing: 16) {
+                    Button {
+                            captionText = ""
+                            self.selectedImageData = nil
+                            tabIndex = 0
+                    } label: {
+                        Text("Cancel")
+                            .font(.system(size: 16,weight: .semibold))
+                            .frame(width: 172, height: 50)
+                            .background(.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                     
-                } label: {
-                    Text("Share")
-                        .font(.system(size: 16,weight: .semibold))
-                        .frame(width: 360, height: 50)
-                        .background(Color(.systemBlue))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                    Button {
+                            postVideModel.uploadPost(caption: captionText, image: uiimage) { _ in
+                            captionText = ""
+                            self.selectedImageData = nil
+                            tabIndex = 0
+                        }
+                    } label: {
+                        Text("Share")
+                            .font(.system(size: 16,weight: .semibold))
+                            .frame(width: 172, height: 50)
+                            .background(Color(.systemBlue))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                 }.padding()
 
-                
             }
             
             Spacer()
@@ -78,8 +100,3 @@ struct UploadPostView: View {
     }
 }
 
-struct UploadPostView_Previews: PreviewProvider {
-    static var previews: some View {
-        UploadPostView()
-    }
-}

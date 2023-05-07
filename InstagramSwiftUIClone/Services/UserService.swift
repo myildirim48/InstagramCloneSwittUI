@@ -6,10 +6,11 @@
 //
 
 import Firebase
+import FirebaseFirestoreSwift
 
 struct UserService {
     
-    static func follow(uid: String, completion: @escaping ((Error?) -> Void)){
+    func follow(uid: String, completion: @escaping ((Error?) -> Void)){
         guard let currentUserUid = Auth.auth().currentUser?.uid else { return }
         
         COLLECTION_FOLLOWING
@@ -22,7 +23,7 @@ struct UserService {
             }
     }
     
-    static func unfollow(uid: String, completion: @escaping ((Error?) -> Void)){
+    func unfollow(uid: String, completion: @escaping ((Error?) -> Void)){
         guard let currentUserUid = Auth.auth().currentUser?.uid else { return }
         
         COLLECTION_FOLLOWING
@@ -50,4 +51,31 @@ struct UserService {
                 completion(isFollowed)
             }
     }
+    
+    //MARK: - Fetch user
+    
+    func fetchUser(withUid uid: String,completion: @escaping(User) -> Void) {
+       COLLECTION_USERS
+            .document(uid)
+            .getDocument { snapshot, _ in
+                guard let snapshot else { return }
+                
+                guard let user = try? snapshot.data(as: User.self) else { return }
+                completion(user)
+            }
+    }
+    
+    func fetchUsers(completion: @escaping([User]) -> Void) {
+        COLLECTION_USERS
+            .getDocuments { snapshot, err in
+                if let err {
+                    print("DEBUG : Error \(err.localizedDescription)")
+                }
+                guard let document = snapshot?.documents else { return }
+                let users = document.compactMap { try? $0.data(as: User.self) }
+                
+                completion(users)
+            }
+    }
+    
 }

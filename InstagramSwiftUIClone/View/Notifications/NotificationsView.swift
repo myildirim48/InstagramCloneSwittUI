@@ -16,6 +16,7 @@ struct NotificationsView: View {
                         .padding(.top)
                 }
             }
+           
         }
     }
 }

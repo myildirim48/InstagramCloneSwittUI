@@ -11,7 +11,7 @@ struct SearchView: View {
     @State var searchText = ""
     @State var inSearchMode = false
     
-    @ObservedObject var viewModel = SearchViewModel()
+    @ObservedObject var viewModel =  SearchViewModel()
     
     var body: some View {
         ScrollView {
@@ -23,15 +23,9 @@ struct SearchView: View {
                 if inSearchMode {
                     UserListView(viewModel: viewModel,searchText: $searchText)
                 }else {
-                    PostGridView()
+                    PostGridView(config: .explore)
                 }
             }
         }
-    }
-}
-
-struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
     }
 }

@@ -23,15 +23,8 @@ struct ProfileView: View {
             VStack(spacing: 32) {
                 ProfileHeaderView(viewModel: viewModel)
                 Divider()
-                PostGridView()
-                    
+                PostGridView(config: .profile(user.id ?? ""))
             }
         }
     }
 }
-
-//struct ProfileView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProfileView()
-//    }
-//}

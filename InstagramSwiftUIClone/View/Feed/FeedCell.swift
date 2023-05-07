@@ -8,26 +8,22 @@
 import SwiftUI
 
 struct FeedCell: View {
+    
+    let post: Post
+    
     var body: some View {
         VStack(alignment: .leading) {
 //            User info
             HStack {
-                Image(systemName: "person.circle")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 36, height: 36)
-                    .clipped()
-                    .cornerRadius(36)
+                LoadableImage(imageType: .profile,imgUrl: post.ownerImageUrl, size: 36)
                 
-                Text("joker")
+                Text(post.ownerUserName)
                     .font(.system(size: 14,weight: .semibold))
                 
             }.padding(.leading)
 //            post image
      
-                Image("darth-vader")
-                    .resizable()
-                    .scaledToFill()
+            LoadableImage(imageType: .post, imgUrl: post.imageUrl)
                     .frame(maxHeight: 440)
                     
             
@@ -67,13 +63,13 @@ struct FeedCell: View {
             }.padding(.leading,15)
 //            caption
             VStack(alignment: .leading,spacing: 5) {
-                Text("0 Likes")
+                Text("\(post.likes) Likes")
                     .font(.system(size: 14,weight: .bold))
                 HStack {
-                    Text("batman")
+                    Text(post.ownerUserName)
                         .font(.system(size: 14,weight: .bold))
                     +
-                    Text(" all man have limits. ")
+                    Text(" \(post.caption)")
                         .font(.system(size: 15))
                 }
                 
@@ -87,8 +83,8 @@ struct FeedCell: View {
     }
 }
 
-struct FeedCell_Previews: PreviewProvider {
-    static var previews: some View {
-        FeedCell()
-    }
-}
+//struct FeedCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FeedCell()
+//    }
+//}

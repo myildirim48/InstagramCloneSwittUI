@@ -6,9 +6,26 @@
 //
 
 import SwiftUI
+
+enum imageType {
+    case profile
+    case post
+    
+    var baseImageName: String {
+        switch self {
+        case .profile:
+            return "person.circle.fill"
+        case .post:
+            return "photo"
+        }
+    }
+}
 struct LoadableImage: View {
     
+    let imageType: imageType
+    
     let imgUrl: String
+    
     var size: CGFloat = 54
     
     var body: some View {
@@ -18,12 +35,24 @@ struct LoadableImage: View {
                 case .empty:
                     ProgressView()
                 case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: size, height: size)
-                        .clipShape(Circle())
-                        .shadow(color: .gray.opacity(0.5), radius: 5)
+                    
+                    switch imageType {
+                    case .profile:
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: size, height: size)
+                            .clipShape(Circle())
+                            .shadow(color: .gray.opacity(0.5), radius: 5)
+                        
+                    case .post:
+                        image
+                            .resizable()
+                            .scaledToFill()
+//                            .frame(maxHeight: 440)
+//                            .shadow(color: .gray.opacity(0.5), radius: 5)
+                    }
+     
                 case .failure:
                     emptyImage
                 @unknown default:
@@ -37,13 +66,13 @@ struct LoadableImage: View {
 
 struct LoadableImage_Previews: PreviewProvider {
     static var previews: some View {
-        LoadableImage(imgUrl: "asd")
+        LoadableImage(imageType: .post, imgUrl: "asd")
     }
 }
 
 extension LoadableImage {
     var emptyImage: some View {
-        Image(systemName: "person.circle.fill")
+        Image(systemName: imageType.baseImageName)
             .resizable()
             .scaledToFill()
             .frame(width: 48, height: 48)
