@@ -28,7 +28,7 @@ struct PostGridView: View {
                 LazyVGrid(columns: items, spacing: 2) {
                     ForEach(viewModel.posts) { posts in
                         NavigationLink {
-                            FeedView()
+                            FeedCell(viewModel: FeedCellViewModel(post: posts))
                         } label: {
                             Color.clear.overlay {
                                 LoadableImage(imageType: .post, imgUrl: posts.imageUrl)

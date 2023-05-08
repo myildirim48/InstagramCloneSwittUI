@@ -15,12 +15,6 @@ struct PostService {
             guard let documents = snapshot?.documents else { return }
             let posts = documents.compactMap({ try? $0.data(as: Post.self) })
             completion(posts)
-            
-            print(posts.count)
-            posts.forEach { post in
-                print("DEBUG: Post Url: \(post.imageUrl)")
-            }
-            
         }
     }
     

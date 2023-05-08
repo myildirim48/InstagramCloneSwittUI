@@ -8,42 +8,61 @@
 import SwiftUI
 
 struct NotificationCell: View {
+
+    @ObservedObject var viewModel: NotificationCellViewModel
     
-    @State var showPostImage = false
+    var isFollowed: Bool {
+        return viewModel.notification.userIsFollowed ?? false
+    }
+    
+    init(viewModel: NotificationCellViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         HStack {
-            Image(systemName: "person.circle")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 48, height: 48)
-                .clipShape(Circle())
-            
-            Text("joker")
-                .font(.system(size: 14,weight: .bold))
-            +
-            Text(" liked one of your post")
-                .font(.system(size: 14))
-            
+            NavigationLink {
+                if let user = viewModel.notification.user {
+                    ProfileView(user: user)
+                }
+            } label: {
+                LoadableImage(imageType: .profile, imgUrl: viewModel.notification.profileImageUrl,size: 36)
+                
+                Text(viewModel.notification.username)
+                    .font(.system(size: 14,weight: .bold))
+                +
+                Text(viewModel.notification.type.notificationMessage)
+                    .font(.system(size: 14))
+                
+            }
+
             Spacer()
             
-            if showPostImage {
-                Image("darth-vader")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height: 48)
-                    .padding()
+            if viewModel.notification.type != .follow {
+                if let post = viewModel.notification.post {
+                    NavigationLink {
+                        FeedCell(viewModel: FeedCellViewModel(post: post))
+                    } label: {
+                        LoadableImage(imageType: .post, imgUrl: post.imageUrl)
+                            .frame(width: 40, height: 40)
+                            .clipped()
+                    }
+
+                }
             }else {
                 Button {
-                    
+                    isFollowed ? viewModel.unfollow() : viewModel.follow()
                 } label: {
-                    Text("Following")
-                        .padding(.horizontal,20)
-                        .padding(.vertical,10)
-                        .foregroundColor(.white)
-                        .font(.system(size: 14,weight: .semibold))
-                        .background(Color(.systemBlue))
-                        .clipShape(Capsule())
+                    Text(isFollowed ? "Following" : "Follow")
+                        .font(.system(size: 15,weight: .semibold))
+                        .frame(width: 95, height: 28, alignment: .center)
+                        .overlay(content: {
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.gray, lineWidth: isFollowed ? 1 : 0)
+                        })
+                        .background(isFollowed ? .white : Color(.systemBlue))
+                        .foregroundColor(isFollowed ? .black : .white)
+                        .cornerRadius(8)
                         
                 }
                 
@@ -53,11 +72,5 @@ struct NotificationCell: View {
             
             
         }.padding(.horizontal)
-    }
-}
-
-struct NotificationCell_Previews: PreviewProvider {
-    static var previews: some View {
-        NotificationCell()
     }
 }
