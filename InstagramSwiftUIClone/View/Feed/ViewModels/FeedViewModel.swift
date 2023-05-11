@@ -18,6 +18,7 @@ class FeedViewModel: ObservableObject {
     
     func fetchPosts(){
         postService.fetchPosts { posts in
+            
             self.posts = posts
         }
     }

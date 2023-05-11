@@ -9,13 +9,15 @@ import SwiftUI
 
 struct ProfileActionButton: View {
     @ObservedObject var viewModel: ProfileViewModel
+    @State var editProfile = false
     
     var isFollowing: Bool { return viewModel.user.isFollowed ?? false}
+    
     
     var body: some View {
         if viewModel.user.isCurrentUser {
             Button {
-                
+                editProfile.toggle()
             } label: {
                 Text("Edit profile")
                     .font(.system(size: 15,weight: .semibold))
@@ -24,7 +26,9 @@ struct ProfileActionButton: View {
                         RoundedRectangle(cornerRadius: 3)
                             .stroke(Color.gray, lineWidth:1)
                     })
-        }
+            }.sheet(isPresented: $editProfile) {
+                EditProfileView(user: $viewModel.user)
+            }
         }else {
             
             HStack {
@@ -58,9 +62,3 @@ struct ProfileActionButton: View {
         }
     }
 }
-//
-//struct ProfileActionButton_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProfileActionButton()
-//    }
-//}

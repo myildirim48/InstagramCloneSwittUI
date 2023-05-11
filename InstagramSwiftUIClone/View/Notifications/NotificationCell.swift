@@ -20,22 +20,22 @@ struct NotificationCell: View {
     }
     
     var body: some View {
-        HStack {
-            NavigationLink {
-                if let user = viewModel.notification.user {
-                    ProfileView(user: user)
-                }
-            } label: {
-                LoadableImage(imageType: .profile, imgUrl: viewModel.notification.profileImageUrl,size: 36)
-                
-                Text(viewModel.notification.username)
-                    .font(.system(size: 14,weight: .bold))
-                +
-                Text(viewModel.notification.type.notificationMessage)
-                    .font(.system(size: 14))
-                
-            }
+        HStack{
+                NavigationLink {
+                    if let user = viewModel.notification.user {
+                        ProfileView(user: user)
+                    }
+                } label: {
+                    LoadableImage(imageType: .profile, imgUrl: viewModel.notification.profileImageUrl)
+                        Text(viewModel.notification.username)
+                            .font(.system(size: 14,weight: .semibold))
+                    +
+                        Text(viewModel.notification.type.notificationMessage)
+                            .font(.system(size: 14))
+                    +
+                        Text(" \(viewModel.timeStampString)").font(.system(size: 12)).foregroundColor(.gray)
 
+                }
             Spacer()
             
             if viewModel.notification.type != .follow {
@@ -44,8 +44,7 @@ struct NotificationCell: View {
                         FeedCell(viewModel: FeedCellViewModel(post: post))
                     } label: {
                         LoadableImage(imageType: .post, imgUrl: post.imageUrl)
-                            .frame(width: 40, height: 40)
-                            .clipped()
+                            .frame(width: 35, height: 35)
                     }
 
                 }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProfileHeaderView: View {
-//
     @ObservedObject var viewModel: ProfileViewModel
     
     var body: some View {
@@ -20,9 +19,10 @@ struct ProfileHeaderView: View {
                 Spacer()
                 
                 HStack(spacing: 6) {
-                    UserStatView(title: "Posts", value: 1)
-                    UserStatView(title: "Following", value: 13)
-                    UserStatView(title: "Followers", value: 21)
+                    
+                    UserStatView(title: "Posts", value: viewModel.user.stats?.posts ?? 0)
+                    UserStatView(title: "Following", value: viewModel.user.stats?.following ?? 0)
+                    UserStatView(title: "Followers", value: viewModel.user.stats?.followers ?? 0)
                     
                 }.padding(.trailing,24)
             }
@@ -31,17 +31,19 @@ struct ProfileHeaderView: View {
                 .font(.system(size: 14,weight: .semibold))
                 .padding([.leading,.top],10)
             
-            Text("Dark side wants youu!!!")
-                .font(.system(size: 15))
-                .padding(.leading,10)
-                .padding(.top,1)
+            if let bio = viewModel.user.bio {
+                Text(bio)
+                    .font(.system(size: 15))
+                    .padding(.leading,10)
+                    .padding(.top,1)
+            }
             
             HStack {
                 Spacer()
                 ProfileActionButton(viewModel: viewModel)
                 Spacer()
             }.padding(.top)
-
+            
             
         }
     }

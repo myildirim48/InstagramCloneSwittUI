@@ -29,7 +29,6 @@ struct LoadableImage: View {
     var size: CGFloat = 54
     
     var body: some View {
-        VStack {
             AsyncImage(url: URL(string: imgUrl)) { phase in
                 switch phase {
                 case .empty:
@@ -59,7 +58,6 @@ struct LoadableImage: View {
                     emptyImage
                 }
             }
-        }
 
     }
 }

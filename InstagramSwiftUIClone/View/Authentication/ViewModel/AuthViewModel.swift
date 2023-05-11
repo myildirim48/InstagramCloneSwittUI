@@ -7,9 +7,12 @@
 
 import SwiftUI
 import Firebase
+
+
 class AuthViewModel: ObservableObject {
     @Published var userSessions: FirebaseAuth.User?
     @Published var currentUser: User?
+    @Published var didSendResetPasswordLink = false
     
     private let userService = UserService()
     
@@ -67,8 +70,14 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func resetPassword()  {
-        
+    func resetPassword(withEmail email:String)  {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error {
+                print("DEBUG: Failed to send link for reset password , \(error.localizedDescription) ")
+                return
+            }
+            self.didSendResetPasswordLink = true
+        }
     }
     
     func fetchUser()  {

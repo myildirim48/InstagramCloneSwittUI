@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 
 struct PostService {
     func fetchPosts(completion: @escaping([Post]) -> Void) {
-        COLLECTION_POSTS.getDocuments { snapshot, error in
+        COLLECTION_POSTS.order(by: "timestamp", descending: true).getDocuments { snapshot, error in
             guard let documents = snapshot?.documents else { return }
             let posts = documents.compactMap({ try? $0.data(as: Post.self) })
             completion(posts)
@@ -22,7 +22,8 @@ struct PostService {
         COLLECTION_POSTS.whereField("ownerUid", isEqualTo: uid)
             .getDocuments { snapshot, _ in
                 guard let documents = snapshot?.documents else { return }
-                let posts = documents.compactMap { try? $0.data(as: Post.self) }
+                var posts = documents.compactMap { try? $0.data(as: Post.self) }
+                posts = posts.sorted { $0.timestamp.dateValue() > $1.timestamp.dateValue() }
                 completion(posts)
             }
     }

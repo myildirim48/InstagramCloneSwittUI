@@ -7,8 +7,10 @@
 
 import SwiftUI
 import Firebase
+import FirebaseFirestoreSwift
 
 class ProfileViewModel: ObservableObject {
+    
     @Published var user: User
     
     private let userService = UserService()
@@ -18,6 +20,7 @@ class ProfileViewModel: ObservableObject {
         self.user = user
         checkIfUserFollowed()
         fetchUser()
+        fetchUserStats()
     }
 
     
@@ -52,6 +55,24 @@ class ProfileViewModel: ObservableObject {
         guard let userUid = Auth.auth().currentUser?.uid else { return }
         userService.fetchUser(withUid: userUid) { user in
             self.currentUser = user
+        }
+    }
+    
+    func fetchUserStats(){
+        guard let uid = user.id else { return }
+        
+        COLLECTION_FOLLOWING.document(uid).collection("user-following").getDocuments { snapshot, error in
+            guard let following = snapshot?.documents.count else { return }
+            
+            COLLECTION_FOLLOWERS.document(uid).collection("user-followers").getDocuments { snapshot, error in
+                guard let followers = snapshot?.documents.count else { return }
+                
+                COLLECTION_POSTS.whereField("ownerUid", isEqualTo: uid).getDocuments { snapshot, error in
+                    guard let posts = snapshot?.documents.count else { return }
+                    
+                    self.user.stats = UserStats(following: following, posts: posts, followers: followers)
+                }
+            }
         }
     }
 }

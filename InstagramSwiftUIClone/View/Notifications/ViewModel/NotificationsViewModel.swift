@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 class NotificationsViewModel: ObservableObject {
     @Published var notifications = [Notification]()
     
+ 
     init() {
         fetchNotifications()
     }
@@ -30,6 +31,7 @@ class NotificationsViewModel: ObservableObject {
     
     static func uploadNotification(toUid uid: String, currentUser: User ,type: NotificationType, post: Post? = nil)  {
         guard let currentUserID = currentUser.id else { return }
+        guard uid != currentUserID else { return }
         
         var data : [String : Any] = ["timestamp" : Timestamp(date: Date()),
                                      "username" : currentUser.username,
