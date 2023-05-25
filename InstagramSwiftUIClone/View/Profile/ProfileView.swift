@@ -24,6 +24,7 @@ struct ProfileView: View {
                 ProfileHeaderView(viewModel: viewModel)
                 Divider()
                 PostGridView(config: .profile(user.id ?? ""))
+                
             }
         }
     }

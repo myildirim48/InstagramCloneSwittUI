@@ -66,6 +66,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7410A1EB2A1F80D500A1BE66 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7471BF412A02D2E100268BB3 /* InstagramSwiftUIClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramSwiftUIClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7471BF442A02D2E100268BB3 /* InstagramSwiftUICloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramSwiftUICloneApp.swift; sourceTree = "<group>"; };
 		7471BF482A02D2E200268BB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -139,6 +140,7 @@
 		7471BF382A02D2E000268BB3 = {
 			isa = PBXGroup;
 			children = (
+				7410A1EB2A1F80D500A1BE66 /* README.md */,
 				74A2F78E2A04136500E6CBA9 /* GoogleService-Info.plist */,
 				7471BF432A02D2E100268BB3 /* InstagramSwiftUIClone */,
 				7471BF422A02D2E100268BB3 /* Products */,
